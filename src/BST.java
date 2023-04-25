@@ -48,6 +48,31 @@ public class BST {
      */
     public boolean search(int val) {
         // TODO: Complete the search function
+        return(searchHelper(val, root));
+
+        //i do no think i need this anymore
+        //return false;
+    }
+    public boolean searchHelper(int val, BSTNode n)
+    {
+        //basecase
+        if(n == null)
+        {
+            return false;
+        }
+        //basecase
+        if(n.getVal() == val)
+        {
+            return true;
+        }
+        if(n.getVal() < val)
+        {
+            return searchHelper(val, n.getLeft());
+        }
+        if(n.getVal() > val)
+        {
+            return searchHelper(val, n.getRight());
+        }
         return false;
     }
 
@@ -56,15 +81,50 @@ public class BST {
      */
     public ArrayList<BSTNode> getInorder() {
         // TODO: Complete inorder traversal
+
+        //initialize the arrayList
+        ArrayList<BSTNode> n = new ArrayList<BSTNode>();
+        correctOrder(root, n);
         return null;
+
     }
+    public void correctOrder(BSTNode node, ArrayList<BSTNode> n)
+    {
+        if(node.getLeft() != null)
+        {
+            correctOrder(node.getLeft(), n);
+        }
+        n.add(node);
+        if(node.getRight() != null)
+        {
+            correctOrder(node.getRight(), n);
+        }
+        return;
+    }
+
 
     /**
      * @return ArrayList of BSTNodes in preorder
      */
     public ArrayList<BSTNode> getPreorder() {
         // TODO: Complete preorder traversal
-        return null;
+        ArrayList<BSTNode> n = new ArrayList<BSTNode>();
+        order(root, n);
+        return n;
+    }
+    public void order(BSTNode node, ArrayList<BSTNode> n)
+    {
+        //basecase
+        if(node == null)
+        {
+            return;
+        }
+        n.add(node);
+
+        //these two steps here recursively each subtree. In this case right and left
+        order(node.getLeft(), n);
+        order(node.getRight(), n);
+
     }
 
     /**
@@ -72,8 +132,23 @@ public class BST {
      */
     public ArrayList<BSTNode> getPostorder() {
         // TODO: Complete postorder traversal
-        return null;
+        ArrayList<BSTNode> n = new ArrayList<BSTNode>();
+        pOrder(root, n);
+        return n;
     }
+    public void pOrder(BSTNode node, ArrayList<BSTNode> n)
+    {
+        if(node.getRight() != null)
+        {
+            pOrder(node.getRight(), n);
+        }
+        if(node.getLeft() != null)
+        {
+            pOrder(node.getLeft(), n);
+        }
+        n.add(node);
+    }
+
 
     /**
      * Inserts the given integer value to the tree
